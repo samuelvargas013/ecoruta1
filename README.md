@@ -38,7 +38,7 @@ Este repositorio corresponde al **MVP v1.0** desarrollado como proyecto final de
 | Abrahan Corona   | Líder del Proyecto / Desarrollador UI        | Presentation (BLoC + Pages) |
 | Samuel Vargas    | Analista Funcional / Desarrollador Backend   | Data + Domain (Firebase + Casos de uso) |
 
-**Facilitador:** Tomas F. Ramírez Pérez  
+**Facilitador:** Joan Gregorio Pérez 
 **Curso:** Seminario de Proyecto II — ISW-411 — UAPA 2026
 
 ---
@@ -126,7 +126,7 @@ ecoruta/
 
 ```bash
 # 1. Clonar el repositorio
-git clone https://github.com/saab-software-devs/ecoruta.git
+git clone https://github.com/samuelvargas013/ecoruta1.git
 cd ecoruta
 
 # 2. Instalar dependencias
@@ -149,7 +149,7 @@ flutter run
 ## 📌 Commit inicial
 
 ```
-git commit -m "Configura estructura del proyecto posterior a clinica tecnica Semana 3"
+git commit -m "Configura estructura del proyecto posterior a clinica tecnica Semana 4"
 ```
 
 ---
