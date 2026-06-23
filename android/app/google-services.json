@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "263576703167",
+    "project_id": "ecoruta-app-f3925",
+    "storage_bucket": "ecoruta-app-f3925.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263576703167:android:d71133147070f1fda3760a",
+        "android_client_info": {
+          "package_name": "com.example.ecoruta1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263576703167-ifpgh4cns8vn1uvcf1fe7cchh63ng3t0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ecoruta1",
+            "certificate_hash": "a03549b88c3c23a80101571442fe258ef9055afd"
+          }
+        },
+        {
+          "client_id": "263576703167-ti7g2efnf5d17bhku20bjtd8kknklqfk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg6SUmxrNKkTkoXJ6NMDJ2SCmzkmY5fzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263576703167-ti7g2efnf5d17bhku20bjtd8kknklqfk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "263576703167-abockot6m5r0oam30lj6kf0netp09koo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ecoruta1"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

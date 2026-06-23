@@ -1,0 +1,70 @@
+rules_version = '2';
+
+// EcoRuta — Firestore Security Rules
+// Configuradas desde el primer sprint (recomendación de la clínica técnica).
+// Cubren RNF-06 (privacidad de coordenadas) y control de roles.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---- Helpers ----
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+    function userData(uid) {
+      return get(/databases/$(database)/documents/users/$(uid)).data;
+    }
+    function isValidatedRecycler() {
+      return isSignedIn()
+        && userData(request.auth.uid).role == 'reciclador'
+        && userData(request.auth.uid).recicladorValidado == true;
+    }
+
+    // ---- USERS ----
+    match /users/{uid} {
+      // Cualquier autenticado puede leer datos básicos de perfil (nombre, puntos).
+      allow read: if isSignedIn();
+      // Solo el dueño crea/edita su perfil.
+      allow create: if isOwner(uid);
+      // El usuario NO puede auto-asignarse validación de reciclador ni modificar
+      // libremente sus puntos desde el cliente (eso lo hace el backend/Console).
+      allow update: if isOwner(uid)
+        && request.resource.data.recicladorValidado == resource.data.recicladorValidado
+        && request.resource.data.role == resource.data.role;
+      allow delete: if false;
+
+      // Subcolección de insignias (solo lectura para el dueño).
+      match /badges/{badgeId} {
+        allow read: if isOwner(uid);
+        allow write: if false; // Otorgadas por backend/Console.
+      }
+    }
+
+    // ---- REPORTS ----
+    match /reports/{reportId} {
+      // RNF-06: las coordenadas (location) de reportes pendientes solo son
+      // visibles para el autor y para recicladores VALIDADOS.
+      allow read: if isSignedIn() && (
+        resource.data.authorId == request.auth.uid ||
+        isValidatedRecycler()
+      );
+
+      // Crear: solo el autor autenticado, con campos mínimos y estado pendiente.
+      allow create: if isSignedIn()
+        && request.resource.data.authorId == request.auth.uid
+        && request.resource.data.status == 'pendiente'
+        && request.resource.data.photoUrls.size() >= 1
+        && request.resource.data.keys().hasAll(
+            ['authorId','material','location','status','photoUrls']);
+
+      // Actualizar estado a "recogido": solo recicladores validados.
+      allow update: if isValidatedRecycler()
+        && request.resource.data.status == 'recogido';
+
+      // Eliminar: solo el autor.
+      allow delete: if isSignedIn() && resource.data.authorId == request.auth.uid;
+    }
+  }
+}

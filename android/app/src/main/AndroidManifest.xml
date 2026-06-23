@@ -1,8 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Permisos requeridos por EcoRuta -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <application
-        android:label="ecoruta1"
+        android:label="EcoRuta"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <!-- Google Maps SDK: reemplaza TU_GOOGLE_MAPS_API_KEY por tu clave real
+             (Google Cloud Console → Maps SDK for Android). Ver INSTRUCCIONES_FIREBASE.md -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDIaHA6O1Og2JnCHvhyP18FAOy7-VXchuI"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

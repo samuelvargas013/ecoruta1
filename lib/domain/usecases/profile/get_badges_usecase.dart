@@ -1,0 +1,14 @@
+import 'package:dartz/dartz.dart';
+import '../../../core/errors/failures.dart';
+import '../../entities/badge_entity.dart';
+import '../../repositories/profile_repository.dart';
+import '../usecase.dart';
+
+class GetBadgesUseCase implements UseCase<List<BadgeEntity>, String> {
+  final ProfileRepository repository;
+  GetBadgesUseCase(this.repository);
+
+  @override
+  Future<Either<Failure, List<BadgeEntity>>> call(String uid) =>
+      repository.getBadges(uid);
+}

@@ -1,0 +1,16 @@
+rules_version = '2';
+
+// EcoRuta — Cloud Storage Security Rules
+// Fotos de residuos: reports/{reportId}/photo_N.jpg
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /reports/{reportId}/{fileName} {
+      // Lectura: cualquier usuario autenticado (las URLs se muestran en el mapa/lista).
+      allow read: if request.auth != null;
+      // Escritura: usuario autenticado, solo imágenes de hasta 5 MB.
+      allow write: if request.auth != null
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+  }
+}
