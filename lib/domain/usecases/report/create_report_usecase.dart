@@ -7,6 +7,11 @@ import '../../entities/report_entity.dart';
 import '../../repositories/report_repository.dart';
 import '../usecase.dart';
 
+/// Caso de uso: crear un reporte de material reciclable (F-02).
+///
+/// Aquí vive la REGLA DE NEGOCIO (no en la pantalla ni en Firebase):
+/// un reporte debe tener al menos una foto. Si no la tiene, se rechaza
+/// antes de tocar la red.
 class CreateReportUseCase implements UseCase<ReportEntity, CreateReportParams> {
   final ReportRepository repository;
   CreateReportUseCase(this.repository);
@@ -31,6 +36,8 @@ class CreateReportUseCase implements UseCase<ReportEntity, CreateReportParams> {
   }
 }
 
+/// Todos los datos necesarios para crear un reporte:
+/// autor, tipo de material, coordenadas GPS, dirección, fotos y descripción.
 class CreateReportParams extends Equatable {
   final String authorId;
   final String authorName;

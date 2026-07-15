@@ -14,6 +14,12 @@ import '../bloc/report/report_form_bloc.dart';
 import '../widgets/material_visuals.dart';
 import '../widgets/primary_button.dart';
 
+/// Formulario de nuevo reporte (F-02).
+///
+/// Flujo del vecino: elegir material -> capturar ubicación GPS ->
+/// agregar fotos (mínimo 1, desde cámara o galería) -> descripción
+/// opcional -> enviar. Al enviar, las fotos suben a Firebase Storage
+/// y el reporte se guarda en Firestore (+10 puntos para el autor).
 class ReportFormPage extends StatelessWidget {
   final UserEntity user;
   const ReportFormPage({super.key, required this.user});
@@ -34,6 +40,8 @@ class _ReportFormView extends StatelessWidget {
   final UserEntity user;
   const _ReportFormView({required this.user});
 
+  /// Abre cámara o galería. La imagen se comprime (calidad 70,
+  /// máx. 1280px) para ahorrar datos y almacenamiento.
   Future<void> _pickPhoto(BuildContext context, ImageSource source) async {
     final picker = ImagePicker();
     final picked =

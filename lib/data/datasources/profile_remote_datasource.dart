@@ -5,6 +5,7 @@ import '../../core/errors/exceptions.dart';
 import '../models/user_model.dart';
 import '../../domain/entities/badge_entity.dart';
 
+/// Acceso directo a Firestore para el perfil y las insignias (F-05).
 abstract class ProfileRemoteDataSource {
   Stream<UserModel?> watchProfile(String uid);
   Future<List<BadgeEntity>> getBadges(String uid);
@@ -23,6 +24,8 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   ];
 
   @override
+  /// Escucha el documento del usuario en Firestore en tiempo real.
+  /// Cada cambio (puntos, kg, insignias) llega automáticamente a la UI.
   Stream<UserModel?> watchProfile(String uid) {
     return _firestore
         .collection(FirestorePaths.users)
@@ -32,6 +35,8 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   }
 
   @override
+  /// Combina el catálogo de insignias con las que el usuario ya desbloqueó
+  /// (campo badgeIds de su documento en Firestore).
   Future<List<BadgeEntity>> getBadges(String uid) async {
     try {
       final doc = await _firestore

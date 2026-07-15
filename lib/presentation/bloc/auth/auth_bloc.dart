@@ -15,6 +15,16 @@ import '../../../domain/usecases/auth/sign_up_usecase.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
+/// BLoC de autenticación (F-01): el "cerebro" del inicio de sesión.
+///
+/// Funcionamiento del patrón BLoC:
+///   1. La pantalla dispara un EVENTO (ej. "el usuario pulsó Iniciar Sesión").
+///   2. El BLoC ejecuta el caso de uso correspondiente.
+///   3. El BLoC emite un nuevo ESTADO (cargando, autenticado, error...).
+///   4. La pantalla se redibuja automáticamente según ese estado.
+///
+/// Además, escucha el stream de sesión de Firebase: si la sesión cambia
+/// (login, logout, expiración), toda la app se entera al instante.
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
   final SignInUseCase signIn;
@@ -40,6 +50,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthPasswordResetRequested>(_onReset);
     on<AuthSignOutRequested>(_onSignOut);
 
+    // Suscripción permanente: cualquier cambio de sesión en Firebase
+    // se convierte en un evento AuthUserChanged.
     _authSub = authRepository.authStateChanges.listen(
       (user) => add(AuthUserChanged(user)),
     );

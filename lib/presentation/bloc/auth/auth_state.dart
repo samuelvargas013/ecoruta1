@@ -1,7 +1,13 @@
 part of 'auth_bloc.dart';
 
+/// Estados posibles de la sesión:
+/// - unknown: aún verificando (se muestra un spinner al abrir la app)
+/// - authenticated: hay usuario -> se muestra la app (HomeShell)
+/// - unauthenticated: sin sesión -> se muestra el login
 enum AuthStatus { unknown, authenticated, unauthenticated }
 
+/// Estado inmutable de autenticación. copyWith crea una copia modificada
+/// en lugar de mutar el estado (requisito del patrón BLoC).
 class AuthState extends Equatable {
   final AuthStatus status;
   final UserEntity? user;

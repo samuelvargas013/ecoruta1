@@ -7,11 +7,19 @@ import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_remote_datasource.dart';
 
+/// Implementa el contrato AuthRepository del dominio.
+///
+/// Su trabajo principal: llamar al datasource y TRADUCIR errores.
+/// Las excepciones técnicas (AuthException) se convierten en Failures,
+/// de modo que la UI nunca ve errores crudos de Firebase, solo
+/// resultados Either: Left(Failure) = falló, Right(dato) = funcionó.
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remote;
   AuthRepositoryImpl(this.remote);
 
   @override
+  /// Stream que indica si hay sesión activa. Cuando Firebase notifica un
+  /// usuario, se carga su perfil completo desde Firestore.
   Stream<UserEntity?> get authStateChanges =>
       remote.firebaseAuthState.asyncMap((fbUser) async {
         if (fbUser == null) return null;

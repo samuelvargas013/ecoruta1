@@ -35,6 +35,8 @@ class ReportFormBloc extends Bloc<ReportFormEvent, ReportFormState> {
     on<ReportSubmitted>(_onSubmit);
   }
 
+  /// "Usar mi ubicación": pide el GPS al teléfono y guarda las
+  /// coordenadas en el estado del formulario.
   Future<void> _onLocation(
       LocationRequested event, Emitter<ReportFormState> emit) async {
     emit(state.copyWith(loadingLocation: true, clearError: true));
@@ -56,6 +58,9 @@ class ReportFormBloc extends Bloc<ReportFormEvent, ReportFormState> {
     }
   }
 
+  /// Envío del reporte: valida (foto + ubicación), convierte las fotos
+  /// a bytes y llama al caso de uso. Emite success o failure para que
+  /// la pantalla muestre el resultado.
   Future<void> _onSubmit(
       ReportSubmitted event, Emitter<ReportFormState> emit) async {
     if (!state.canSubmit) {

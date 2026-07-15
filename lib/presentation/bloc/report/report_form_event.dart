@@ -1,5 +1,7 @@
 part of 'report_form_bloc.dart';
 
+/// Eventos del formulario: cada interacción del usuario
+/// (elegir material, agregar foto, pedir GPS, enviar) es un evento.
 abstract class ReportFormEvent extends Equatable {
   const ReportFormEvent();
   @override

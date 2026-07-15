@@ -5,6 +5,8 @@ import '../../entities/user_entity.dart';
 import '../../repositories/auth_repository.dart';
 import '../usecase.dart';
 
+/// Caso de uso: iniciar sesión con correo y contraseña (F-01).
+/// Devuelve el usuario autenticado o un Failure con el motivo del error.
 class SignInUseCase implements UseCase<UserEntity, SignInParams> {
   final AuthRepository repository;
   SignInUseCase(this.repository);
@@ -16,6 +18,7 @@ class SignInUseCase implements UseCase<UserEntity, SignInParams> {
   }
 }
 
+/// Datos que necesita el inicio de sesión: correo y contraseña.
 class SignInParams extends Equatable {
   final String email;
   final String password;

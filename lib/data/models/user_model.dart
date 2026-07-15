@@ -16,6 +16,7 @@ class UserModel extends UserEntity {
     super.recicladorValidado,
   });
 
+  /// Construye el modelo desde los datos crudos de Firestore.
   factory UserModel.fromMap(String uid, Map<String, dynamic> map) {
     return UserModel(
       uid: uid,
@@ -33,6 +34,7 @@ class UserModel extends UserEntity {
   factory UserModel.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) =>
       UserModel.fromMap(doc.id, doc.data() ?? const {});
 
+  /// Convierte el usuario a mapa para guardarlo en Firestore.
   Map<String, dynamic> toMap() => {
         'email': email,
         'name': name,

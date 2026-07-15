@@ -8,6 +8,8 @@ import '../../domain/entities/report_entity.dart';
 import '../../domain/repositories/report_repository.dart';
 import '../datasources/report_remote_datasource.dart';
 
+/// Implementa ReportRepository: delega en el datasource y
+/// convierte excepciones (Storage/Server) en Failures para la UI.
 class ReportRepositoryImpl implements ReportRepository {
   final ReportRemoteDataSource remote;
   ReportRepositoryImpl(this.remote);

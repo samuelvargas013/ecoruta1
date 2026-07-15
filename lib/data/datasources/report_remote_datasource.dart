@@ -6,6 +6,8 @@ import '../../core/constants/firestore_paths.dart';
 import '../../core/errors/exceptions.dart';
 import '../models/report_model.dart';
 
+/// Acceso directo a Firestore (datos) y Firebase Storage (fotos)
+/// para el módulo de reportes (F-02, F-03, F-04).
 abstract class ReportRemoteDataSource {
   Future<ReportModel> createReport({
     required String authorId,
@@ -88,6 +90,9 @@ class ReportRemoteDataSourceImpl implements ReportRemoteDataSource {
   }
 
   @override
+  /// Stream de reportes PENDIENTES (los que se pintan en el mapa, F-03).
+  /// snapshots() = escucha en tiempo real: si un vecino crea un reporte,
+  /// aparece en el mapa del reciclador sin refrescar.
   Stream<List<ReportModel>> watchActiveReports() {
     return _reports
         .where('status', isEqualTo: ReportStatus.pendiente.id)
@@ -97,6 +102,7 @@ class ReportRemoteDataSourceImpl implements ReportRemoteDataSource {
   }
 
   @override
+  /// Stream de los reportes de un autor específico ("Mis reportes").
   Stream<List<ReportModel>> watchReportsByAuthor(String authorId) {
     return _reports
         .where('authorId', isEqualTo: authorId)
@@ -106,6 +112,8 @@ class ReportRemoteDataSourceImpl implements ReportRemoteDataSource {
   }
 
   @override
+  /// F-04: cambia el estado a "recogido" y registra qué reciclador
+  /// lo recogió y cuándo (hora del servidor).
   Future<void> markAsCollected(String reportId, String recyclerId) async {
     try {
       await _reports.doc(reportId).update({

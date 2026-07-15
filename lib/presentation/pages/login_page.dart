@@ -8,6 +8,12 @@ import '../bloc/auth/auth_bloc.dart';
 import '../widgets/primary_button.dart';
 import 'register_page.dart';
 
+/// Pantalla de inicio de sesión (F-01).
+///
+/// Ofrece tres caminos: correo/contraseña, Google y recuperación de
+/// contraseña. La pantalla NO valida credenciales por sí misma: envía
+/// eventos al AuthBloc y reacciona a los estados que este emite
+/// (cargando, error, sesión iniciada).
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -28,6 +34,8 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+  /// Valida el formulario localmente y, si está correcto,
+  /// dispara el evento de inicio de sesión al AuthBloc.
   void _submit() {
     if (_formKey.currentState!.validate()) {
       context
@@ -50,6 +58,8 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
+        // BlocListener: reacciona a cambios de estado que NO redibujan la
+        // pantalla, como mostrar avisos (SnackBar) de error o de éxito.
         child: BlocListener<AuthBloc, AuthState>(
           listenWhen: (p, c) =>
               p.errorMessage != c.errorMessage ||

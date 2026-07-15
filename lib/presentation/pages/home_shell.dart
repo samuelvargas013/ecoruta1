@@ -7,7 +7,9 @@ import 'profile_page.dart';
 import 'report_form_page.dart';
 import 'reports_list_page.dart';
 
-/// Contenedor principal con barra de navegación inferior.
+/// Pantalla contenedora tras iniciar sesión: barra de navegación
+/// inferior con las 3 secciones (Mapa, Reportes, Perfil) y el botón
+/// flotante "+" para crear un reporte desde el mapa.
 class HomeShell extends StatefulWidget {
   final UserEntity user;
   const HomeShell({super.key, required this.user});

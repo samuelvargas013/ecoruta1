@@ -8,6 +8,11 @@ import '../../core/utils/validators.dart';
 import '../bloc/auth/auth_bloc.dart';
 import '../widgets/primary_button.dart';
 
+/// Pantalla de registro (F-01).
+///
+/// Pide nombre, correo, contraseña y el ROL del usuario:
+/// - Vecino: reporta materiales reciclables.
+/// - Reciclador: recoge materiales (requiere validación para ver el mapa).
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 

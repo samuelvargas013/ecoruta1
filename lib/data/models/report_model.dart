@@ -19,6 +19,8 @@ class ReportModel extends ReportEntity {
     super.collectedBy,
   });
 
+  /// Construye el modelo desde un documento de Firestore.
+  /// Usa valores por defecto para tolerar campos faltantes o antiguos.
   factory ReportModel.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     final map = doc.data() ?? const {};
     final geo = map['location'] as GeoPoint?;
@@ -39,6 +41,9 @@ class ReportModel extends ReportEntity {
     );
   }
 
+  /// Convierte los datos a un mapa listo para guardarse en Firestore.
+  /// La fecha la pone el servidor (serverTimestamp) para evitar
+  /// relojes desajustados en los teléfonos.
   static Map<String, dynamic> toCreateMap({
     required String authorId,
     required String authorName,

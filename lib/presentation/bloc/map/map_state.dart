@@ -2,6 +2,7 @@ part of 'map_bloc.dart';
 
 enum MapStatus { loading, loaded, error }
 
+/// Estado del mapa/lista: qué reportes mostrar y si aún se están cargando.
 class MapState extends Equatable {
   final MapStatus status;
   final List<ReportEntity> reports;

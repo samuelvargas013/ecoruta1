@@ -6,6 +6,8 @@ import '../../entities/user_entity.dart';
 import '../../repositories/auth_repository.dart';
 import '../usecase.dart';
 
+/// Caso de uso: registrar un usuario nuevo (F-01).
+/// Crea la cuenta en Firebase Auth y su perfil (con rol) en Firestore.
 class SignUpUseCase implements UseCase<UserEntity, SignUpParams> {
   final AuthRepository repository;
   SignUpUseCase(this.repository);
@@ -21,6 +23,7 @@ class SignUpUseCase implements UseCase<UserEntity, SignUpParams> {
   }
 }
 
+/// Datos del registro: nombre, correo, contraseña y rol (vecino/reciclador).
 class SignUpParams extends Equatable {
   final String name;
   final String email;

@@ -7,6 +7,8 @@ import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/profile_repository.dart';
 import '../datasources/profile_remote_datasource.dart';
 
+/// Implementa ProfileRepository: delega en el datasource y
+/// convierte excepciones en Failures (mismo patrón que auth).
 class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileRemoteDataSource remote;
   ProfileRepositoryImpl(this.remote);

@@ -18,6 +18,9 @@ abstract class AuthRemoteDataSource {
   Future<UserModel> getCurrentUser();
 }
 
+/// Implementación real: es el ÚNICO lugar de la app que habla directamente
+/// con Firebase Auth y con Google Sign-In. Si mañana se cambia de proveedor,
+/// solo se modifica esta clase.
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final FirebaseAuth _auth;
   final FirebaseFirestore _firestore;
@@ -133,6 +136,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     return UserModel.fromDoc(doc);
   }
 
+  /// Traduce los códigos de error técnicos de Firebase
+  /// a mensajes entendibles para el usuario final.
   String _mapAuthError(String code) {
     switch (code) {
       case 'invalid-email':

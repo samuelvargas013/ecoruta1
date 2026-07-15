@@ -2,6 +2,9 @@ part of 'report_form_bloc.dart';
 
 enum FormSubmitStatus { editing, submitting, success, failure }
 
+/// Estado del formulario: material elegido, fotos, descripción,
+/// coordenadas GPS y estado del envío. La pantalla es un reflejo
+/// directo de este objeto.
 class ReportFormState extends Equatable {
   final MaterialType material;
   final List<XFile> photos;

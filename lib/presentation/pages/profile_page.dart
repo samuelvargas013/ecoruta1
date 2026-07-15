@@ -11,6 +11,11 @@ import '../../domain/usecases/profile/watch_profile_usecase.dart';
 import '../bloc/auth/auth_bloc.dart';
 import '../bloc/profile/profile_bloc.dart';
 
+/// Pantalla de perfil y gamificación (F-05).
+///
+/// Muestra en tiempo real: datos del usuario, puntos y nivel,
+/// insignias desbloqueadas, impacto (kg reciclados y CO2 ahorrado)
+/// y el botón de cerrar sesión.
 class ProfilePage extends StatelessWidget {
   final String uid;
   const ProfilePage({super.key, required this.uid});

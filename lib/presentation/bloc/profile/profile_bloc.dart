@@ -23,6 +23,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<_ProfileUpdated>(_onUpdated);
   }
 
+  /// Al abrir el perfil: carga las insignias una vez y luego queda
+  /// escuchando el perfil en tiempo real (puntos, kg, nivel).
   Future<void> _onStarted(
       ProfileStarted event, Emitter<ProfileState> emit) async {
     final badgesResult = await getBadges(event.uid);

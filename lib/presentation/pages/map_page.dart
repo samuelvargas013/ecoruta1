@@ -13,6 +13,12 @@ import '../../domain/usecases/report/watch_my_reports_usecase.dart';
 import '../bloc/map/map_bloc.dart';
 import '../widgets/material_visuals.dart';
 
+/// Pantalla del mapa (F-03): muestra los reportes como marcadores de
+/// Google Maps, con un color distinto por tipo de material.
+///
+/// Regla de visibilidad:
+/// - Reciclador VALIDADO: ve todos los reportes pendientes de la zona.
+/// - Vecino o reciclador sin validar: solo ve sus propios reportes.
 class MapPage extends StatelessWidget {
   final UserEntity user;
   const MapPage({super.key, required this.user});
@@ -47,6 +53,8 @@ class _MapView extends StatelessWidget {
     zoom: 13,
   );
 
+  /// Color del marcador en el mapa según el tipo de material
+  /// (coincide con la leyenda inferior).
   double _hue(MaterialType m) {
     switch (m) {
       case MaterialType.plastico:
@@ -62,6 +70,9 @@ class _MapView extends StatelessWidget {
     }
   }
 
+  /// Al tocar un marcador: abre un panel inferior con el detalle del
+  /// reporte. Si el usuario es reciclador validado, muestra además el
+  /// botón "Marcar como recogido" (F-04).
   void _openReport(BuildContext context, ReportEntity r) {
     final canCollect =
         user.role == UserRole.reciclador && user.recicladorValidado;
@@ -148,6 +159,7 @@ class _MapView extends StatelessWidget {
   }
 }
 
+/// Leyenda flotante: qué color corresponde a cada material.
 class _Legend extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
